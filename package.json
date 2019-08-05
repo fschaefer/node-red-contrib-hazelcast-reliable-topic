@@ -26,6 +26,7 @@
         "nodes": {
             "hazelcast-reliable-topic": "index.js"
         }
-    }
+    },
+    "keywords": ["node-red"]
 }
 
