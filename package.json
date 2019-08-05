@@ -1,0 +1,31 @@
+{
+    "name" : "node-red-contrib-hazelcast-reliable-topic",
+    "version": "1.0.0",
+    "description": "Nodes to connect Node-RED to Hazelcast `Reliable Topics`",
+    "main": "index.js",
+    "dependencies": {
+        "hazelcast-client": "^3.12.1"
+    },
+    "devDependencies": {
+        "@types/node": "^8.0.31",
+        "typescript": "^2.5.2"
+    },
+    "scripts": {
+        "build": "./node_modules/typescript/bin/tsc",
+        "start": "node .",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "clean": "rm -rf index.js node_modules"
+    },
+    "author": "Florian Schäfer <florian.schaefer@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/fschaefer/node-red-contrib-hazelcast-reliable-topic.git"
+    },
+    "node-red" : {
+        "nodes": {
+            "hazelcast-reliable-topic": "index.js"
+        }
+    }
+}
+

@@ -1,0 +1,141 @@
+<script type="text/javascript">
+    RED.nodes.registerType("hazelcast-reliable-topic-input-node", {
+        paletteLabel: "Reliable Topic",
+        category: "Hazelcast",
+        color: "#F3B567",
+        defaults: {
+            server: {
+                value: "",
+                type: "hazelcast-remote-server"
+            },
+            topic: {
+                value: ""
+            },
+            group_name: {
+                value: ""
+            },
+            group_password: {
+                value: ""
+            },
+            name: {
+                value: ""
+            }
+        },
+        inputs: 0,
+        outputs: 1,
+        icon: "hazelcast.png",
+        label: function () {
+            return this.name || "Reliable Topic"
+        }
+    })
+</script>
+
+<script type="text/x-red" data-template-name="hazelcast-reliable-topic-input-node">
+    <div class="form-row">
+        <label for="node-input-server"><i class="icon-tag"></i> Server</label>
+        <input type="text" id="node-input-server" placeholder="Server">
+    </div>
+    <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tag"></i> Topic</label>
+        <input type="text" id="node-input-topic" placeholder="Topic">
+    </div>
+    <div class="form-row">
+        <label for="node-input-group_name"><i class="icon-tag"></i> Group Name</label>
+        <input type="text" id="node-input-group_name" placeholder="Group Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-group_password"><i class="icon-tag"></i> Group Password</label>
+        <input type="password" id="node-input-group_password" placeholder="Group Password">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="hazelcast-reliable-topic-input-node">
+    <p>A node that receives messages from a Hazelcast `Reliable Topic` and forwards them to Node-RED.</p>
+</script>
+
+
+<script type="text/javascript">
+    RED.nodes.registerType("hazelcast-reliable-topic-output-node", {
+        paletteLabel: "Reliable Topic",
+        category: "Hazelcast",
+        color: "#F3B567",
+        defaults: {
+            server: {
+                value: "",
+                type: "hazelcast-remote-server"
+            },
+            topic: {
+                value: ""
+            },
+            group_name: {
+                value: ""
+            },
+            group_password: {
+                value: ""
+            },
+            name: {
+                value: ""
+            }
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "hazelcast.png",
+        label: function () {
+            return this.name || "Reliable Topic"
+        }
+    })
+</script>
+
+<script type="text/x-red" data-template-name="hazelcast-reliable-topic-output-node">
+    <div class="form-row">
+        <label for="node-input-server"><i class="icon-tag"></i> Server</label>
+        <input type="text" id="node-input-server" placeholder="Server">
+    </div>
+    <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tag"></i> Topic</label>
+        <input type="text" id="node-input-topic" placeholder="Topic">
+    </div>
+    <div class="form-row">
+        <label for="node-input-group_name"><i class="icon-tag"></i> Group Name</label>
+        <input type="text" id="node-input-group_name" placeholder="Group Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-group_password"><i class="icon-tag"></i> Group Password</label>
+        <input type="password" id="node-input-group_password" placeholder="Group Password">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="hazelcast-reliable-topic-output-node">
+    <p>A node that receives messages from Node-RED and forwards them to a Hazelcast `Reliable Topic`.</p>
+</script>
+
+
+<script type="text/javascript">
+    RED.nodes.registerType("hazelcast-remote-server", {
+        category: "config",
+        defaults: {
+            hosts: {
+                value: "localhost:5701",
+                required: true
+            }
+        },
+        label: function () {
+            return this.hosts
+        }
+    })
+</script>
+
+<script type="text/x-red" data-template-name="hazelcast-remote-server">
+    <div class="form-row">
+        <label for="node-config-input-hosts"><i class="icon-bookmark"></i> Hosts</label>
+        <input type="text" id="node-config-input-hosts">
+    </div>
+</script>
