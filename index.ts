@@ -1,5 +1,4 @@
 
-//https://github.com/hazelcast/hazelcast-nodejs-client/blob/95e1d1f5db1644ba647244925576703b2a6bd285/README.md#55-setting-connection-attempt-limit
 enum NodeType {
 	ReliableTopicInputNode,
 	ReliableTopicOutputNode
