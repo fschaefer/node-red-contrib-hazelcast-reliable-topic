@@ -24,9 +24,7 @@
     },
     "node-red" : {
         "nodes": {
-            "hazelcast-reliable-topic-input-node": "index.js",
-            "hazelcast-reliable-topic-output-node": "index.js",
-            "hazelcast-remote-server-node": "index.js"
+            "hazelcast-reliable-topic-input-node": "index.js"
         }
     },
     "keywords": ["node-red", "hazelcast", "topic"]
