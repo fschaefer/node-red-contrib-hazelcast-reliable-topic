@@ -125,6 +125,18 @@
             hosts: {
                 value: "localhost:5701",
                 required: true
+            },
+            connection_timeout: {
+                value: 5000,
+                validate: RED.validators.number()
+            },
+            connection_attempt_period: {
+                value: 3000,
+                validate: RED.validators.number()
+            },
+            connection_attempt_limit: {
+                value: 2,
+                validate: RED.validators.number()
             }
         },
         label: function () {
@@ -137,5 +149,17 @@
     <div class="form-row">
         <label for="node-config-input-hosts"><i class="icon-bookmark"></i> Hosts</label>
         <input type="text" id="node-config-input-hosts">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-connection_timeout"><i class="icon-bookmark"></i> Connection Timeout (ms)</label>
+        <input type="text" id="node-config-input-connection_timeout">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-connection_attempt_period"><i class="icon-bookmark"></i> Connection Attempt Period (ms)</label>
+        <input type="text" id="node-config-input-connection_attempt_period">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-connection_attempt_limit"><i class="icon-bookmark"></i> Connection Attempt Limit (retries)</label>
+        <input type="text" id="node-config-input-connection_attempt_limit">
     </div>
 </script>

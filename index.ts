@@ -14,23 +14,24 @@ module.exports = function (RED: any) {
 
 			RED.nodes.createNode(this, config)
 
-			this.topic = config.topic || ""
-			this.groupName = config.group_name || ""
-			this.groupPassword = config.group_password || ""
-			this.server = RED.nodes.getNode(config.server)
-			this.server.hosts = this.server.hosts || "localhost:5701"
+			let serverConfig = RED.nodes.getNode(config.server)
 
 			let hazelcastConfig = new Config.ClientConfig()
 
-			;(this.server.hosts.split(/\s*,\s*/) || []).forEach((host: string) => {
+			hazelcastConfig.groupConfig.name = config.group_name
+			hazelcastConfig.groupConfig.password = config.group_password
+
+			;(serverConfig.hosts || ["localhost:5701"]).split(/\s*,\s*/).forEach((host: string) => {
 				hazelcastConfig.networkConfig.addresses.push(host)
 			})
-			
-			hazelcastConfig.groupConfig.name = this.groupName
-			hazelcastConfig.groupConfig.password = this.groupPassword
+
+            hazelcastConfig.networkConfig.connectionTimeout = serverConfig.connectionTimeout
+            hazelcastConfig.networkConfig.connectionAttemptPeriod = serverConfig.connectionAttemptPeriod
+            hazelcastConfig.networkConfig.connectionAttemptLimit = serverConfig.connectionAttemptLimit
+
 
 			Client.newHazelcastClient(hazelcastConfig).then((client: any) => {
-				client.getReliableTopic(this.topic).then((topic: any) => {
+				client.getReliableTopic(config.topic).then((topic: any) => {
 					if (type == NodeType.ReliableTopicInputNode) {
 						topic.addMessageListener((message: any) => {
 							let msg = {
@@ -62,6 +63,9 @@ module.exports = function (RED: any) {
     function RemoteServerNode(this: any, config: any) {
         RED.nodes.createNode(this, config)
         this.hosts = config.hosts
+        this.connectionTimeout = config.connection_timeout
+        this.connectionAttemptPeriod = config.connection_attempt_period
+        this.connectionAttemptLimit = config.connection_attempt_limit
     }
 
     RED.nodes.registerType("hazelcast-remote-server", RemoteServerNode)
