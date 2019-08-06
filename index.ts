@@ -4,8 +4,8 @@ enum NodeType {
 	ReliableTopicOutputNode
 }
 
-let Client = require('hazelcast-client').Client
-let Config = require('hazelcast-client').Config
+const Client = require('hazelcast-client').Client
+const Config = require('hazelcast-client').Config
 
 module.exports = function (RED: any) {
 
@@ -30,29 +30,34 @@ module.exports = function (RED: any) {
             hazelcastConfig.networkConfig.connectionAttemptLimit = serverConfig.connectionAttemptLimit
 
 
-			Client.newHazelcastClient(hazelcastConfig).then((client: any) => {
-				client.getReliableTopic(config.topic).then((topic: any) => {
-					if (type == NodeType.ReliableTopicInputNode) {
-						topic.addMessageListener((message: any) => {
-							let msg = {
-								"payload": message.messageObject,
-								"publisher": message.publisher,
-								"publishingTime": message.publishingTime
-							}
-							try {
-								msg.payload = JSON.parse(message.messageObject)
-							}
-							catch(e) {}
-							this.send(msg)
-						})
-					}
-					else if (type == NodeType.ReliableTopicOutputNode) {
-						this.on('input', (message: any) => {
-							topic.publish(JSON.stringify(message.payload))
-						})
-					}
-				})
-			})
+			this.client = Client.newHazelcastClient(hazelcastConfig)
+                .then((client: any) => {
+                    client.getReliableTopic(config.topic).then((topic: any) => {
+                        if (type == NodeType.ReliableTopicInputNode) {
+                            topic.addMessageListener((message: any) => {
+                                let msg = {
+                                    "payload": message.messageObject,
+                                    "publisher": message.publisher,
+                                    "publishingTime": message.publishingTime
+                                }
+                                try {
+                                    msg.payload = JSON.parse(message.messageObject)
+                                }
+                                catch(e) {}
+                                this.send(msg)
+                            })
+                        }
+                        else if (type == NodeType.ReliableTopicOutputNode) {
+                            this.on('input', (message: any) => {
+                                topic.publish(JSON.stringify(message.payload))
+                            })
+                        }
+                    })
+                })
+
+            this.on("close", () => {
+                this.client.shutdown()
+            })
 		}
 	}
 
@@ -68,6 +73,6 @@ module.exports = function (RED: any) {
         this.connectionAttemptLimit = config.connection_attempt_limit
     }
 
-    RED.nodes.registerType("hazelcast-remote-server", RemoteServerNode)
+    RED.nodes.registerType("hazelcast-remote-server-node", RemoteServerNode)
 }
 
