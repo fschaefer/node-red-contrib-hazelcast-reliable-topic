@@ -27,6 +27,6 @@
             "hazelcast-reliable-topic": "index.js"
         }
     },
-    "keywords": ["node-red"]
+    "keywords": ["node-red", "hazelcast", "topic"]
 }
 
